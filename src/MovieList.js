@@ -4,9 +4,10 @@ import React from 'react';
 export default class MovieList extends React.Component {
   static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w780';
   static TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+  static API_KEY = '542003918769df50083a13c415bbc602';
 
   static  _constructUrl(path) {
-    return `${MovieList.TMDB_BASE_URL}/${path}?api_key=542003918769df50083a13c415bbc602`;
+    return `${MovieList.TMDB_BASE_URL}/${path}?api_key=${MovieList.API_KEY}`;
   }
 
   constructor(props) {
@@ -19,7 +20,8 @@ export default class MovieList extends React.Component {
   }
 
   componentDidMount() {
-    const url = MovieList._constructUrl(`movie/now_playing`);
+    // const url = MovieList._constructUrl(`movie/now_playing`);
+    const url = './movies.json';  // the local file is located in /public
     console.log(url);
     fetch(url)
       .then(res => res.json())
