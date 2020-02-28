@@ -2,9 +2,10 @@ import React from 'react';
 // import movies from './data';
 
 export default class MovieList extends React.Component {
-  static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w780';
   static TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+  static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w780';
   static API_KEY = '542003918769df50083a13c415bbc602';
+  
 
   static  _constructUrl(path) {
     return `${MovieList.TMDB_BASE_URL}/${path}?api_key=${MovieList.API_KEY}`;
@@ -15,13 +16,15 @@ export default class MovieList extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
-      items: []
+      movies: []
     };
   }
 
   componentDidMount() {
+    // Fetch data from TMDB website directly:
     // const url = MovieList._constructUrl(`movie/now_playing`);
-    const url = './movies.json';  // the local file is located in /public
+    // Fetch data from a local file in /public:
+    const url = './movies.json';
     console.log(url);
     fetch(url)
       .then(res => res.json())
@@ -29,7 +32,7 @@ export default class MovieList extends React.Component {
         (data) => {
           this.setState({
             isLoaded: true,
-            items: data.results
+            movies: data.results
           });
         },
         // Note: it's important to handle errors here
@@ -45,7 +48,7 @@ export default class MovieList extends React.Component {
   }
 
   render() {
-    const { error, isLoaded, items } = this.state;
+    const { error, isLoaded, movies } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -54,10 +57,10 @@ export default class MovieList extends React.Component {
       return (
         <div>
         {
-          items.map(movie => {
+          movies.map(movie => {
             return (
-              <div>
-                <h2>{movie.title}</h2>
+              <div key={movie.id}>
+                <h2>{movie.title} <small>({movie.release_date.slice(0, 4)})</small></h2>
                 <img src={MovieList.BACKDROP_BASE_URL + movie.poster_path} alt={movie.title} width="200"></img>
               </div>
             )
