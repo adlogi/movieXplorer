@@ -1,5 +1,4 @@
 import React from 'react';
-// import movies from './data';
 
 export default class MovieList extends React.Component {
   static TMDB_BASE_URL = 'https://api.themoviedb.org/3';
