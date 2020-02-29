@@ -1,4 +1,6 @@
 import React from 'react';
+import 'font-awesome/css/font-awesome.min.css';
+
 
 export default class SearchBox extends React.Component {
   static TMDB_BASE_URL = 'https://api.themoviedb.org/3';
@@ -46,8 +48,14 @@ export default class SearchBox extends React.Component {
   render() {
     return (
       <>
-        <input id="search-box" type="text" placeholder="Enter a keyword"></input>
-        <button onClick={this.clickHandle}>Find</button>
+        <div className="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+          <div className="input-group">
+            <div className="input-group-prepend">
+              <button onClick={this.clickHandle} id="button-addon2" type="submit" className="btn btn-link text-warning"><i className="fa fa-search"></i></button>
+            </div>
+            <input id="search-box" type="search" placeholder="What're you searching for?" aria-describedby="button-addon2" className="form-control border-0 bg-light" />
+          </div>
+        </div>
       </>);
   }
 }

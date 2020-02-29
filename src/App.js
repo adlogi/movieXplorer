@@ -21,7 +21,8 @@ export default class App extends React.Component {
     console.log(`App(MOVIES): ${this.state.movies}`)
     return (
       <div className="App">
-        <div className="App-header">
+        {/* <div className="App-header"> */}
+        <div>
           <SearchBox setAppState={this.setAppState} />
         </div>
         <MovieList movies={this.state.movies} />
