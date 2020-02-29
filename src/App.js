@@ -13,31 +13,27 @@ export default class App extends React.Component {
     }
   }
 
-  setAppState = (moviesJson) => {
+  setAppState = (moviesJson, keywords) => {
     this.setState({
-      movies: moviesJson
+      movies: moviesJson,
+      searchKeywords: keywords
     })
   }
 
   render() {
-    console.log(`App(MOVIES): ${this.state.movies}`)
     return (
-      <div className="App">
-        <Navbar bg="light" variant="light">
-          <Navbar.Brand href="#home">
-            <img
-              alt=""
-              src={logo}
-              width="100"
-              // height="30"
-              className="d-inline-block align-top"
-            />{' '}
-          </Navbar.Brand>
-        </Navbar>
-        {/* <div className="App-header"> */}
-        <div>
+      <div className="App container-fluid bg-dark">
+        <div className="row d-flex justify-content-center">
+          <Navbar bg="dark" variant="light">
+            <Navbar.Brand href="#home">
+              <img alt="" src={logo} width="200" className="d-inline-block align-top ml-4" style={{ "filter":"invert(100%)" }} />{' '}
+            </Navbar.Brand>
+          </Navbar>
           <SearchBox setAppState={this.setAppState} />
         </div>
+        <h1 class="display-4 text-light">
+          {this.state.searchKeywords === '' ? 'The Most Popular Today!' : `Results for "${this.state.searchKeywords}"`}
+        </h1>
         <MovieList movies={this.state.movies} />
       </div>
     );
