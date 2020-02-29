@@ -1,0 +1,53 @@
+import React from 'react';
+
+export default class SearchBox extends React.Component {
+  static TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+  static API_KEY = '542003918769df50083a13c415bbc602';
+
+  static  _constructDefaultUrl(path) {
+    return `${SearchBox.TMDB_BASE_URL}/${path}?api_key=${SearchBox.API_KEY}`;
+  }
+
+  static  _constructSearchUrl(keywords) {
+    return `${SearchBox.TMDB_BASE_URL}/search/movie?api_key=${SearchBox.API_KEY}&language=en-US&query=${keywords}&page=1&include_adult=false`;
+  }
+
+  retrieveData(searchKeywords) {
+    let url;
+    if (searchKeywords === '') {
+      url = SearchBox._constructDefaultUrl(`movie/popular`);
+    } else {
+      url = SearchBox._constructSearchUrl(searchKeywords)
+    }
+    
+    fetch(url)
+    .then(res => res.json())
+    .then(
+      data => {
+        this.props.setAppState(data.results);
+      }
+      // ,
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      // (error) => {
+      //   this.props.setAppState({
+      //     isLoaded: true,
+      //     error
+      //   });
+      // }
+    );
+  }
+
+  clickHandle = () => {
+    this.retrieveData(document.querySelector('#search-box').value);
+  }
+
+  render() {
+    return (
+      <>
+        <input id="search-box" type="text" placeholder="Enter a keyword"></input>
+        <button onClick={this.clickHandle}>Find</button>
+      </>);
+  }
+}

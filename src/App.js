@@ -1,41 +1,30 @@
 import React from 'react';
 import './App.css';
 import MovieList from './MovieList';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <MovieList />
-//     </div>
-//   );
-// }
-
-// export default App;
+import SearchBox from './SearchBox';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchKeywords: '',
+      movies: []
     }
   }
-  clickHandle = () => {
+
+  setAppState = (moviesJson) => {
     this.setState({
-      searchKeywords: document.querySelector('#search-box').value,
+      movies: moviesJson
     })
-    
   }
 
   render() {
-    console.log(`STATE: ${this.state.searchKeywords}`)
+    console.log(`App(MOVIES): ${this.state.movies}`)
     return (
       <div className="App">
         <div className="App-header">
-          <input id="search-box" type="text" placeholder="Enter a keyword"></input>
-          <button onClick={this.clickHandle}>Find</button>
-          
+          <SearchBox setAppState={this.setAppState} />
         </div>
-        <MovieList searchKeywords={this.state.searchKeywords} />
+        <MovieList movies={this.state.movies} />
       </div>
     );
   }
