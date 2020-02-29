@@ -27,6 +27,8 @@ export default class MovieList extends React.Component {
           </Card.Footer>
         </Card>
       );
+      // Controling the number of cards per row (responsive)
+      // Credit: https://www.codeply.com/go/nIB6oSbv6q
       // wrap every 2 on sm
       if ((i + 1) % 2 === 0) movieCards.push(<div class="w-100 d-none d-sm-block d-md-none"></div>);
       // wrap every 3 on md
@@ -35,7 +37,6 @@ export default class MovieList extends React.Component {
       if ((i + 1) % 4 === 0) movieCards.push(<div class="w-100 d-none d-lg-block d-xl-none"></div>);
       // wrap every 5 on xl
       if ((i + 1) % 5 === 0) movieCards.push(<div class="w-100 d-none d-xl-block"></div>);
-      // Credit: https://www.codeply.com/go/nIB6oSbv6q
     }
     return <CardDeck className="m-4">{ movieCards }</CardDeck>;
   }
