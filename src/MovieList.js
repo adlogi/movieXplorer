@@ -38,7 +38,7 @@ export default class MovieList extends React.Component {
       // wrap every 5 on xl
       if ((i + 1) % 5 === 0) movieCards.push(<div class="w-100 d-none d-xl-block"></div>);
     }
-    return <CardDeck className="m-4">{ movieCards }</CardDeck>;
+    return <CardDeck className="m-4 pb-5">{ movieCards }</CardDeck>;
   }
 
   render() {

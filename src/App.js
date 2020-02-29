@@ -31,11 +31,12 @@ export default class App extends React.Component {
           </Navbar>
           <SearchBox setAppState={this.setAppState} />
         </div>
-        
+
         <h1 class="display-4 text-light">
           {this.state.searchKeywords === '' ? 'The Most Popular Today!' : `Results for "${this.state.searchKeywords}"`}
         </h1>
         <MovieList movies={this.state.movies} />
+        <footer className="p-1"></footer>
       </div>
     );
   }
