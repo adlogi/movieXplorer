@@ -65,6 +65,20 @@ export default class App extends React.Component {
     }
   }
 
+  handleSearch = (searchKeywords) => {
+    this.retrieveData(searchKeywords);
+    // window.scrollTo(0, 0);
+    this.scrollToTop();
+  }
+
+  scrollToTop = () => {
+    const c = document.documentElement.scrollTop || document.body.scrollTop;
+    if (c > 0) {
+      window.requestAnimationFrame(this.scrollToTop);
+      window.scrollTo(0, c - c / 10);
+    }
+  };
+
   handleScroll = () => { 
     let lastCard = document.querySelector('div.card-deck > div:last-child');
     let lastCardOffset = lastCard.offsetTop + lastCard.clientHeight;
@@ -83,15 +97,16 @@ export default class App extends React.Component {
               <img alt="" src={logo} width="200" className="d-inline-block align-top ml-4" style={{ "filter":"invert(100%)" }} />{' '}
             </Navbar.Brand>
           </Navbar>
-          <SearchBox retrieveData={this.retrieveData} />
         </div>
-
+        <div className="row d-flex justify-content-center sticky-top" >
+          <SearchBox handleSearch={this.handleSearch} />
+        </div>
         <h1 className="display-4 text-light">
           {this.state.searchKeywords === '' ? 'The Most Popular Today!' : `Results for "${this.state.searchKeywords}"`}
         </h1>
         <MovieList movies={this.state.movies} />
         {(this.state.lastPageLoaded < this.state.totalPages)?
-        (<button onClick={this.loadMore} >Load more...</button>):''}
+        (<button type="button" className="btn btn-light" onClick={this.loadMore} >Load more...</button>):''}
         <footer className="p-4"></footer>
       </div>
     );

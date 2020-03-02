@@ -4,7 +4,7 @@ import 'font-awesome/css/font-awesome.min.css';
 export default class SearchBox extends React.Component {
 
   clickHandle = () => {
-    this.props.retrieveData(document.querySelector('#search-box').value);
+    this.props.handleSearch(document.querySelector('#search-box').value);
   }
 
   enterHandle = (event) => {
@@ -16,7 +16,7 @@ export default class SearchBox extends React.Component {
 
   render() {
     return (
-      <div className="p-2 bg-light rounded rounded-pill shadow-sm m-5 w-75">
+      <div className="bg-light rounded rounded-pill shadow-sm m-5 p-2 w-75">
         <div className="input-group">
           <div className="input-group-prepend">
             <button onClick={this.clickHandle} id="button-addon2" type="submit" className="btn btn-link text-dark"><i className="fa fa-search"></i></button>
