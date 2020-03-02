@@ -3,11 +3,17 @@ import 'font-awesome/css/font-awesome.min.css';
 
 export default class SearchBox extends React.Component {
 
-  clickHandle = () => {
-    this.props.handleSearch(document.querySelector('#search-box').value);
+  handleSearch = () => {
+    const searchBox = document.querySelector('#search-box');
+    searchBox.blur();
+    this.props.handleSearch(searchBox.value);
   }
 
-  enterHandle = (event) => {
+  handleSearchFocus = (event) => {
+    event.target.value = '';
+  }
+
+  handleEnter = (event) => {
     if (event.keyCode === 13) {
       event.preventDefault();
       document.querySelector('#button-addon2').click();
@@ -19,9 +25,9 @@ export default class SearchBox extends React.Component {
       <div className="bg-light rounded rounded-pill shadow-sm m-5 p-2 w-75">
         <div className="input-group">
           <div className="input-group-prepend">
-            <button onClick={this.clickHandle} id="button-addon2" type="submit" className="btn btn-link text-dark"><i className="fa fa-search"></i></button>
+            <button onClick={this.handleSearch} id="button-addon2" type="submit" className="btn btn-link text-dark"><i className="fa fa-search"></i></button>
           </div>
-          <input id="search-box" type="search" placeholder="What're you searching for?" aria-describedby="button-addon2" className="form-control border-0 bg-light" onKeyUp={this.enterHandle} />
+          <input id="search-box" type="search" placeholder="What're you searching for?" aria-describedby="button-addon2" className="form-control border-0 bg-light" onKeyUp={this.handleEnter} onFocus={this.handleSearchFocus} />
         </div>
       </div>
     );
