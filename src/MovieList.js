@@ -18,8 +18,8 @@ export default class MovieList extends React.Component {
           <Card.Body>
             <Card.Title>{movies[i].title}</Card.Title>
             <Card.Text>
-              <p>Rating: {movies[i].vote_average} / 10</p>
-              <small className="text-muted">(Based on {movies[i].vote_count} votes)</small>
+                Rating: {movies[i].vote_average} / 10 <br />
+                <small className="text-muted">(Based on {movies[i].vote_count} votes)</small>
             </Card.Text>
           </Card.Body>
           <Card.Footer>
@@ -30,13 +30,13 @@ export default class MovieList extends React.Component {
       // Controling the number of cards per row (responsive)
       // Credit: https://www.codeply.com/go/nIB6oSbv6q
       // wrap every 2 on sm
-      if ((i + 1) % 2 === 0) movieCards.push(<div class="w-100 d-none d-sm-block d-md-none"></div>);
+      if ((i + 1) % 2 === 0) movieCards.push(<div className="w-100 d-none d-sm-block d-md-none"></div>);
       // wrap every 3 on md
-      if ((i + 1) % 3 === 0) movieCards.push(<div class="w-100 d-none d-md-block d-lg-none"></div>);
+      if ((i + 1) % 3 === 0) movieCards.push(<div className="w-100 d-none d-md-block d-lg-none"></div>);
       // wrap every 4 on lg
-      if ((i + 1) % 4 === 0) movieCards.push(<div class="w-100 d-none d-lg-block d-xl-none"></div>);
+      if ((i + 1) % 4 === 0) movieCards.push(<div className="w-100 d-none d-lg-block d-xl-none"></div>);
       // wrap every 5 on xl
-      if ((i + 1) % 5 === 0) movieCards.push(<div class="w-100 d-none d-xl-block"></div>);
+      if ((i + 1) % 5 === 0) movieCards.push(<div className="w-100 d-none d-xl-block"></div>);
     }
     return <CardDeck className="m-4 pb-5">{ movieCards }</CardDeck>;
   }
