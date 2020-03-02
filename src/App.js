@@ -59,6 +59,21 @@ export default class App extends React.Component {
     );
   }
 
+  loadMore = () => {
+    if (this.state.lastPageLoaded < this.state.totalPages) {
+      this.retrieveData(this.state.searchKeywords, this.state.lastPageLoaded + 1);
+    }
+  }
+
+  handleScroll = () => { 
+    let lastCard = document.querySelector('div.card-deck > div:last-child');
+    let lastCardOffset = lastCard.offsetTop + lastCard.clientHeight;
+    let pageOffset = window.pageYOffset + window.innerHeight;
+    if (pageOffset > lastCardOffset) {
+      this.loadMore();
+    }
+  };
+
   render() {
     return (
       <div className="App container-fluid bg-dark">
@@ -76,19 +91,15 @@ export default class App extends React.Component {
         </h1>
         <MovieList movies={this.state.movies} />
         {(this.state.lastPageLoaded < this.state.totalPages)?
-        (<button onClick={this.onLoadMore} >Load more...</button>):''}
+        (<button onClick={this.loadMore} >Load more...</button>):''}
         <footer className="p-4"></footer>
       </div>
     );
   }
 
-  onLoadMore = () => {
-    if (this.state.lastPageLoaded < this.state.totalPages) {
-      this.retrieveData(this.state.searchKeywords, this.state.lastPageLoaded + 1);
-    }
-  }
-
   componentDidMount() {
     this.retrieveData('');
+    window.addEventListener('scroll', this.handleScroll);
   }
+  
 }
