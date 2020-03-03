@@ -82,10 +82,13 @@ export default class App extends React.Component {
   };
 
   handleScroll = () => { 
-    let lastCard = document.querySelector('div.card-deck > div:last-child');
-    let lastCardOffset = lastCard.offsetTop + lastCard.clientHeight;
+    // const cards = document.querySelectorAll('.card');
+    // let lastCard = cards[cards.length - 1];
+    // let lastCardOffset = lastCard.offsetTop + lastCard.clientHeight;
+    // OR, instead of seeking the last card, just seek the footer:
+    let footerOffset = this.footer.offsetTop + this.footer.clientHeight;
     let pageOffset = window.pageYOffset + window.innerHeight;
-    if (pageOffset > lastCardOffset) {
+    if (pageOffset >= footerOffset) {
       this.loadMore();
     }
   };
@@ -109,7 +112,7 @@ export default class App extends React.Component {
           {this.state.searchKeywords === '' ? <>The <span className="font-weight-bold font-italic text-warning">Most Popular</span> Today!</> : <>Results for <span className="font-weight-bold font-italic text-warning">{this.state.searchKeywords}</span></>}
         </h2>
 
-        {(this.state.isLoading && this.state.movies.length === 0 ? (<p className="bg-light lead justify-content-center mx-5">Looking for Movies...</p>) : '')}
+        {(this.state.isLoading ? (<p className="bg-light lead justify-content-center mx-5">Looking for Movies...</p>) : '')}
 
         <MovieList movies={this.state.movies} />
 
@@ -117,12 +120,13 @@ export default class App extends React.Component {
         {(this.state.lastPageLoaded < this.state.totalPages)?
         (<button type="button" className="btn btn-light" onClick={this.loadMore} >Load more...</button>):''}
 
-        <footer className="p-4"></footer>
+        <footer id="footer" className="p-4"></footer>
       </div>
     );
   }
 
   componentDidMount() {
+    this.footer = document.querySelector('#footer');
     this.retrieveData('');
     window.addEventListener('scroll', this.handleScroll);
   }
