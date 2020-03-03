@@ -14,6 +14,7 @@ export default class App extends React.Component {
     this.state = {
       movies: [],
       searchKeywords: '',
+      isLoading: true,
       lastPageLoaded: 0,
       totalPages: 0,
     }
@@ -34,6 +35,7 @@ export default class App extends React.Component {
     } else {
       url = this.constructSearchUrl(searchKeywords, page);
     }
+    this.setState({ isLoading: true });
     
     fetch(url)
     .then(res => res.json())
@@ -42,6 +44,7 @@ export default class App extends React.Component {
         this.setState(prevState => ({
           movies: (page === 1 ? [] : prevState.movies).concat(data.results),
           searchKeywords: searchKeywords,
+          isLoading: false,
           totalPages: data.total_pages,
           lastPageLoaded: page,
         }))
@@ -52,7 +55,7 @@ export default class App extends React.Component {
       // exceptions from actual bugs in components.
       // (error) => {
       //   this.setState({
-      //     isLoaded: true,
+      //     isLoading: false,
       //     error
       //   });
       // }
@@ -67,7 +70,6 @@ export default class App extends React.Component {
 
   handleSearch = (searchKeywords) => {
     this.retrieveData(searchKeywords);
-    // window.scrollTo(0, 0);
     this.scrollToTop();
   }
 
@@ -87,10 +89,10 @@ export default class App extends React.Component {
       this.loadMore();
     }
   };
-
+  
   render() {
     return (
-      <div className="App container-fluid bg-dark">
+      <div className="App container-fluid bg-dark h-100 mh-100">
         <div className="row d-flex justify-content-center">
           <Navbar bg="dark" variant="light">
             <Navbar.Brand href="#home">
@@ -98,15 +100,23 @@ export default class App extends React.Component {
             </Navbar.Brand>
           </Navbar>
         </div>
+
         <div className="row d-flex justify-content-center sticky-top" >
           <SearchBox handleSearch={this.handleSearch} />
         </div>
-        <h1 className="display-4 text-light">
+
+        <h2 className="display-4 text-light">
           {this.state.searchKeywords === '' ? 'The Most Popular Today!' : `Results for "${this.state.searchKeywords}"`}
-        </h1>
+        </h2>
+
+        {(this.state.isLoading && this.state.movies.length === 0 ? (<p className="bg-light lead justify-content-center mx-5">Looking for Movies...</p>) : '')}
+
         <MovieList movies={this.state.movies} />
+
+        {(this.state.isLoading && this.state.movies.length !== 0 ? (<p className="bg-light lead justify-content-center mx-5">Fetching More Movies...</p>) : '')}
         {(this.state.lastPageLoaded < this.state.totalPages)?
         (<button type="button" className="btn btn-light" onClick={this.loadMore} >Load more...</button>):''}
+
         <footer className="p-4"></footer>
       </div>
     );
