@@ -1,7 +1,7 @@
 import React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 
-const SearchBox = (props) => {
+const SearchBox = props => {
   const handleSearch = () => {
     const searchBox = document.querySelector('#search-box');
     searchBox.blur();
