@@ -40,7 +40,7 @@
 /* 2 cards per row */
 @media (min-width: 576px) {
   .card-deck .card {
-    max-width: calc(50%);
+    max-width: calc(50% - 1.85rem);
   }
 }
 
