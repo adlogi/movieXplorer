@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+/* 2 cards per row */
+@media (min-width: 576px) {
+  .card-deck .card {
+    max-width: calc(50%);
+  }
+}
+
+/* 3 cards per row */
+@media (min-width: 768px) {
+  .card-deck .card {
+    max-width: calc(33% - 1.7rem);
+  }
+}
+
+/* 4 cards per row */
+@media (min-width: 992px) {
+  .card-deck .card {
+    max-width: calc(25% - 1.85rem);
+  }
+}
+
+/* 5 cards per row */
+@media (min-width: 1200px) {
+  .card-deck .card {
+    max-width: calc(20% - 1.85rem);
+  }
+}
