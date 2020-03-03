@@ -1,14 +1,14 @@
 import React from 'react';
+import MovieApi from './MovieApi';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Card from 'react-bootstrap/Card';
-import genericPoster from './film-poster-placeholder.png'
+import genericPoster from './film-poster-placeholder.png';
 
 const MovieList = props => {
-  const BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w780';
   let movieCards = [];
 
   for (let i = 0; i < props.movies.length; i++) {
-    let posterSrc = props.movies[i].poster_path === null ? genericPoster : (BACKDROP_BASE_URL + props.movies[i].poster_path);
+    let posterSrc = props.movies[i].poster_path === null ? genericPoster : (MovieApi.BACKDROP_BASE_URL + props.movies[i].poster_path);
     let releaseDate = props.movies[i].release_date === undefined ? 'UNKNOWN' : props.movies[i].release_date.slice(0, 4);
     movieCards.push(
       <Card key={i} className="mt-3">
@@ -36,7 +36,7 @@ const MovieList = props => {
     // wrap every 5 on xl
     if ((i + 1) % 5 === 0) movieCards.push(<div key={`${i}.5`} className="w-100 d-none d-xl-block"></div>);
   }
-
+  
   return <CardDeck className="m-4 pb-5">{ movieCards }</CardDeck>;
 }
 
