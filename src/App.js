@@ -1,14 +1,12 @@
 import React from 'react';
-import './App.css';
+import MovieApi from './MovieApi';
 import MovieList from './MovieList';
 import SearchBox from './SearchBox';
 import Navbar from 'react-bootstrap/Navbar';
-import logo from './logo.png'
+import './App.css';
+import logo from './logo.png';
 
 export default class App extends React.Component {
-  static TMDB_BASE_URL = 'https://api.themoviedb.org/3';
-  static API_KEY = '542003918769df50083a13c415bbc602'; 
-
   constructor(props) {
     super(props);
     this.state = {
@@ -20,20 +18,12 @@ export default class App extends React.Component {
     }
   }
 
-  constructDefaultUrl(param, page = 1) {
-    return `${App.TMDB_BASE_URL}/movie/${param}?api_key=${App.API_KEY}&language=en-US&page=${page}`;
-  }
-
-  constructSearchUrl(keywords, page = 1) {
-    return `${App.TMDB_BASE_URL}/search/movie?api_key=${App.API_KEY}&language=en-US&query=${keywords}&page=${page}&include_adult=false`;
-  }
-
   retrieveData = (searchKeywords, page = 1) => {
     let url;
     if (searchKeywords === '') {
-      url = this.constructDefaultUrl(`popular`, page);
+      url = MovieApi.getMoviesListUrl(`popular`, page);
     } else {
-      url = this.constructSearchUrl(searchKeywords, page);
+      url = MovieApi.getSearchMoviesUrl(searchKeywords, page);
     }
     this.setState({ isLoading: true });
     
