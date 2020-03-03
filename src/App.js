@@ -106,7 +106,7 @@ export default class App extends React.Component {
         </div>
 
         <h2 className="display-4 text-light">
-          {this.state.searchKeywords === '' ? 'The Most Popular Today!' : `Results for "${this.state.searchKeywords}"`}
+          {this.state.searchKeywords === '' ? <>The <span className="font-weight-bold font-italic text-warning">Most Popular</span> Today!</> : <>Results for <span className="font-weight-bold font-italic text-warning">{this.state.searchKeywords}</span></>}
         </h2>
 
         {(this.state.isLoading && this.state.movies.length === 0 ? (<p className="bg-light lead justify-content-center mx-5">Looking for Movies...</p>) : '')}
