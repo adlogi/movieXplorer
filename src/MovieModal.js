@@ -44,8 +44,8 @@ export default function MovieModal(props) {
               </Col>
             </Row>
             <Row className="show-grid">
-              {props.movieCast.map(actor => (
-                <Col md={6} lg={3}>
+              {props.movieCast.map((actor, index) => (
+                <Col md={6} lg={3} key={'actor-' + index}>
                 <Container>
                   <Row className="show-grid">
                     <Col>
@@ -63,7 +63,7 @@ export default function MovieModal(props) {
             </Row>
             <Row className="show-grid">
               <Col className="d-flex justify-content-center">
-                <iframe title="trailerFrame" width="560" height="340" src={MovieApi.TRAILER_BASE_URL + props.movieTrailer.key} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe title="trailerFrame" width="560" height="340" src={MovieApi.TRAILER_BASE_URL + props.movieTrailer.key} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
               </Col>
             </Row>
           </Container>
