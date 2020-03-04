@@ -1,7 +1,8 @@
 import React from 'react';
 import MovieApi from './MovieApi';
-import MovieList from './MovieList';
 import SearchBox from './SearchBox';
+import MovieList from './MovieList';
+import MovieModal from './MovieModal';
 import Navbar from 'react-bootstrap/Navbar';
 import './App.css';
 import logo from './logo.png';
@@ -15,6 +16,10 @@ export default class App extends React.Component {
       isLoading: true,
       lastPageLoaded: 0,
       totalPages: 0,
+      detailsShown: false,
+      movieDetails: null,
+      movieCast: null,
+      movieTrailer: null,
     }
   }
 
@@ -82,6 +87,51 @@ export default class App extends React.Component {
       this.loadMore();
     }
   };
+
+  handleDetailsClick = (event) => {
+    let movieId = event.target.id;
+    this.retrieveDetails(movieId);
+  }
+
+  setDetailsShow = showState => {
+    this.setState({
+      detailsShown: showState,
+    });
+  }
+
+  fetchDetails = async (movieId) => {
+    const detailsUrl = MovieApi.getMovieDetailsUrl(movieId);
+    const creditsUrl = MovieApi.getMovieCreditsUrl(movieId);
+    const videosUrl = MovieApi.getMovieVideosUrl(movieId);
+
+    try {
+      let [details, credits, videos] = await Promise.all([
+        fetch(detailsUrl).then(res => res.json()),
+        fetch(creditsUrl).then(res => res.json()),
+        fetch(videosUrl).then(res => res.json())
+      ]);
+      return [details, credits, videos]
+    }
+    catch(err) {
+      console.log(err);
+    };
+  }
+
+  retrieveDetails = async (movieId) => {
+    let [details, credits, videos] = await this.fetchDetails(movieId);
+    this.setState({
+      detailsShown: true,
+      movieDetails: details,
+      movieCast: credits.cast.slice(0, 4),
+      movieTrailer: videos.results[0],
+    });
+  }
+
+  componentDidMount() {
+    this.footer = document.querySelector('#footer');
+    this.retrieveData('');
+    window.addEventListener('scroll', this.handleScroll);
+  }
   
   render() {
     return (
@@ -104,7 +154,9 @@ export default class App extends React.Component {
 
         {(this.state.isLoading ? (<p className="bg-light lead justify-content-center mx-5">Looking for Movies...</p>) : '')}
 
-        <MovieList movies={this.state.movies} />
+        <MovieList movies={this.state.movies} detailsHandler={this.handleDetailsClick} />
+
+        <MovieModal movieDetails={this.state.movieDetails} movieCast={this.state.movieCast} movieTrailer={this.state.movieTrailer} show={ this.state.detailsShown } onHide={ () => this.setDetailsShow(false) } />
 
         {(this.state.isLoading && this.state.movies.length !== 0 ? (<p className="bg-light lead justify-content-center mx-5">Fetching More Movies...</p>) : '')}
         {(this.state.lastPageLoaded < this.state.totalPages)?
@@ -113,12 +165,6 @@ export default class App extends React.Component {
         <footer id="footer" className="p-4"></footer>
       </div>
     );
-  }
-
-  componentDidMount() {
-    this.footer = document.querySelector('#footer');
-    this.retrieveData('');
-    window.addEventListener('scroll', this.handleScroll);
   }
   
 }
