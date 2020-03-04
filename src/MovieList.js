@@ -4,7 +4,7 @@ import CardDeck from 'react-bootstrap/CardDeck';
 import Card from 'react-bootstrap/Card';
 import genericPoster from './film-poster-placeholder.png';
 
-const MovieList = props => {
+export default function MovieList(props) {
   let movieCards = [];
 
   for (let i = 0; i < props.movies.length; i++) {
@@ -12,17 +12,13 @@ const MovieList = props => {
     let releaseDate = props.movies[i].release_date === undefined ? 'UNKNOWN' : props.movies[i].release_date.slice(0, 4);
     movieCards.push(
       <Card key={i} className="mt-3">
-        <Card.Img variant="top" src={posterSrc} />
+        <Card.Img variant="top" src={posterSrc} id={props.movies[i].id} onClick={props.detailsHandler} />
         <Card.Body>
           <Card.Title>{props.movies[i].title}</Card.Title>
           <Card.Text>
-              Rating: {props.movies[i].vote_average} / 10 <br />
-              <small className="text-muted">(Based on {props.movies[i].vote_count} votes)</small>
+            <small className="text-muted">({releaseDate})</small>
           </Card.Text>
         </Card.Body>
-        <Card.Footer>
-          <small className="text-muted">({releaseDate})</small>
-        </Card.Footer>
       </Card>
     );
     // Controling the number of cards per row (responsive)
@@ -39,5 +35,3 @@ const MovieList = props => {
   
   return <CardDeck className="m-4 pb-5">{ movieCards }</CardDeck>;
 }
-
-export default MovieList;
