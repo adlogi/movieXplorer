@@ -1,6 +1,8 @@
 export default class MovieApi {
   static TMDB_BASE_URL = 'https://api.themoviedb.org/3';
   static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w780';
+  static PROFILE_BASE_URL = 'http://image.tmdb.org/t/p/w185';
+  static TRAILER_BASE_URL = 'https://www.youtube.com/embed/';
   static API_KEY = '542003918769df50083a13c415bbc602';
 
   // Possible values for <<param>>: latest, now_playing, popular, top_rated, upcoming
@@ -19,6 +21,12 @@ export default class MovieApi {
   // Format: https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
   static getMovieDetailsUrl(movieId) {
     return `${MovieApi.TMDB_BASE_URL}/movie/${movieId}?api_key=${MovieApi.API_KEY}&language=en-US`;
+  }
+
+  // Description: https://developers.themoviedb.org/3/movies/get-movie-videos
+  // Format: https://api.themoviedb.org/3/movie/{movie_id}/videos?api_key=<<api_key>>&language=en-US
+  static getMovieVideosUrl(movieId) {
+    return `${MovieApi.TMDB_BASE_URL}/movie/${movieId}/videos?api_key=${MovieApi.API_KEY}&language=en-US`;
   }
 
   // Description: https://developers.themoviedb.org/3/movies/get-movie-credits
