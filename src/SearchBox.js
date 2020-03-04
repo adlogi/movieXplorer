@@ -1,7 +1,7 @@
 import React from 'react';
 import 'font-awesome/css/font-awesome.min.css';
 
-const SearchBox = props => {
+export default function SearchBox(props) {
   const handleSearch = () => {
     const searchBox = document.querySelector('#search-box');
     searchBox.blur();
@@ -30,5 +30,3 @@ const SearchBox = props => {
     </div>
   );
 }
-
-export default SearchBox;
