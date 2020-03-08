@@ -1,26 +1,18 @@
 import React from 'react';
-import MovieApi from './MovieApi';
-import CardDeck from 'react-bootstrap/CardDeck';
-import Card from 'react-bootstrap/Card';
-import genericPoster from './film-poster-placeholder.png';
+import CardDeck from 'react-bootstrap/CardDeck'
+import MovieCard from './MovieCard';
+import Placeholder from './Placeholder'
 
 export default function MovieList(props) {
-  let movieCards = [];
+  const movieCards = [];
+  const cardsCount = props.isLoading ? 10 : props.movies.length;
 
-  for (let i = 0; i < props.movies.length; i++) {
-    let posterSrc = props.movies[i].poster_path === null ? genericPoster : (MovieApi.BACKDROP_BASE_URL + props.movies[i].poster_path);
-    let releaseDate = props.movies[i].release_date === undefined ? 'UNKNOWN' : props.movies[i].release_date.slice(0, 4);
-    movieCards.push(
-      <Card key={i} className="mt-3">
-        <Card.Img variant="top" src={posterSrc} id={props.movies[i].id} onClick={props.detailsHandler} />
-        <Card.Body>
-          <Card.Title>{props.movies[i].title}</Card.Title>
-          <Card.Text>
-            <small className="text-muted">({releaseDate})</small>
-          </Card.Text>
-        </Card.Body>
-      </Card>
-    );
+  for (let i = 0; i < cardsCount; i++) {
+    if (props.isLoading) {
+      movieCards.push(<Placeholder key={i} />);
+    } else {
+      movieCards.push(<MovieCard key={i} movie={props.movies[i]} detailsHandler={props.detailsHandler} />);
+    }
     // Controling the number of cards per row (responsive)
     // Credit: https://www.codeply.com/go/nIB6oSbv6q
     // wrap every 2 on sm
