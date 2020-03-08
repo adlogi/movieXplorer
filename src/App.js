@@ -152,13 +152,10 @@ export default class App extends React.Component {
           {this.state.searchKeywords === '' ? <>The <span className="font-weight-bold font-italic text-warning">Most Popular</span> Today!</> : <>Results for <span className="font-weight-bold font-italic text-warning">{this.state.searchKeywords}</span></>}
         </h2>
 
-        {(this.state.isLoading ? (<p className="bg-light lead justify-content-center mx-5">Looking for Movies...</p>) : '')}
-
-        <MovieList movies={this.state.movies} detailsHandler={this.handleDetailsClick} />
+        <MovieList movies={this.state.movies} detailsHandler={this.handleDetailsClick} isLoading={this.state.isLoading} />
 
         <MovieModal movieDetails={this.state.movieDetails} movieCast={this.state.movieCast} movieTrailer={this.state.movieTrailer} show={ this.state.detailsShown } onHide={ () => this.setDetailsShow(false) } />
 
-        {(this.state.isLoading && this.state.movies.length !== 0 ? (<p className="bg-light lead justify-content-center mx-5">Fetching More Movies...</p>) : '')}
         {(this.state.lastPageLoaded < this.state.totalPages)?
         (<button type="button" className="btn btn-light" onClick={this.loadMore} >Load more...</button>):''}
 
