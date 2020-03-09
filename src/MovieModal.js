@@ -57,13 +57,17 @@ export default function MovieModal(props) {
                     </Row>
                     <Row className="show-grid">
                       <Col>
-                        <h5>{actor.name}</h5><p className="text-muted">({actor.character})</p>
+                        <h5>{actor.name}</h5>
+                        <p className="text-muted">
+                          {actor.character ? `(${actor.character})` : ``}</p>
                       </Col>
                     </Row>
                   </Container>
                   </Col>
                 )) :
-                <Col className="d-flex justify-content-center"><p>No cast list available :( <i className="fas fa-heart-broken"></i></p></Col>
+                <Col className="d-flex justify-content-center">
+                  <p>No information about cast available :( <i className="fas fa-heart-broken"></i></p>
+                </Col>
               }
             </Row>
             
