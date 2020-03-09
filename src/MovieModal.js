@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import genericPoster from './film-poster-placeholder.png';
+import 'font-awesome/css/font-awesome.min.css';
 
 export default function MovieModal(props) {
   if (props.movieDetails) {
@@ -38,34 +39,38 @@ export default function MovieModal(props) {
                 <p>{props.movieDetails.overview}</p>
               </Col>
             </Row>
-            <Row className="show-grid">
-              <Col>
-                <h4>Cast</h4>
-              </Col>
-            </Row>
-            <Row className="show-grid">
-              {props.movieCast.map((actor, index) => (
-                <Col md={6} lg={3} key={'actor-' + index}>
-                <Container>
-                  <Row className="show-grid">
-                    <Col>
-                      <img alt="" src={MovieApi.BACKDROP_BASE_URL + actor.profile_path} width="100%" />
-                    </Col>
-                  </Row>
-                  <Row className="show-grid">
-                    <Col>
-                      <h5>{actor.name}</h5><p className="text-muted">({actor.character})</p>
-                    </Col>
-                  </Row>
-                </Container>
+            
+            {props.movieCast.length === 0 ? '': <>
+              <Row className="show-grid">
+                <Col>
+                  <h4>Cast</h4>
                 </Col>
-              ))}
-            </Row>
+              </Row>
+              <Row className="show-grid">
+                {props.movieCast.map((actor, index) => (
+                  <Col md={6} lg={3} key={'actor-' + index}>
+                  <Container>
+                    <Row className="show-grid">
+                      <Col>
+                        <img alt="" src={MovieApi.BACKDROP_BASE_URL + actor.profile_path} width="100%" />
+                      </Col>
+                    </Row>
+                    <Row className="show-grid">
+                      <Col>
+                        <h5>{actor.name}</h5><p className="text-muted">({actor.character})</p>
+                      </Col>
+                    </Row>
+                  </Container>
+                  </Col>
+                ))}
+              </Row></>
+            }
+            
             <Row className="show-grid">
               <Col className="d-flex justify-content-center">
                 {props.movieTrailer ?
                   <iframe title="trailerFrame" width="560" height="340" src={MovieApi.TRAILER_BASE_URL + props.movieTrailer.key} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> :
-                  <p>No trailer available :(</p>
+                  <p>No trailer available :( <i className="fas fa-heart-broken"></i></p>
                 }
                 
               </Col>

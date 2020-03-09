@@ -25,7 +25,7 @@ export default function SearchBox(props) {
         <div className="input-group-prepend">
         <button onClick={handleSearch} id="button-addon2" type="submit" className="btn btn-link text-light"><i className="fa fa-search"></i></button>
         </div>
-        <input id="search-box" type="search" placeholder="What are you searching for?" aria-describedby="button-addon2" className="form-control border-0 bg-secondary text-warning mr-2" onKeyUp={handleEnter} onFocus={handleSearchFocus} />
+        <input id="search-box" type="search" placeholder="What are you searching for?" aria-describedby="button-addon2" className="form-control border-0 bg-secondary text-light mr-2" onKeyUp={handleEnter} onFocus={handleSearchFocus} />
       </div>
     </div>
   );
