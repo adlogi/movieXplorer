@@ -30,40 +30,37 @@ export default class App extends React.Component {
     } else {
       url = MovieApi.getSearchMoviesUrl(searchKeywords, page);
     }
-    if (page === 1) {
-      this.setState({ 
-        movies: [],
-        isLoading: true
-      });
-    } else {
-      this.setState({
-        isLoading: true
-      });
-    }
     
-    fetch(url)
-    .then(res => res.json())
-    .then(
-      data => {
-        this.setState(prevState => ({
-          movies: (page === 1 ? [] : prevState.movies).concat(data.results),
-          searchKeywords: searchKeywords,
-          isLoading: false,
-          totalPages: data.total_pages,
-          lastPageLoaded: page,
-        }))
-      }
-      // ,
-      // TODO: Note: it's important to handle errors here
-      // instead of a catch() block so that we don't swallow
-      // exceptions from actual bugs in components.
-      // (error) => {
-      //   this.setState({
-      //     isLoading: false,
-      //     error
-      //   });
-      // }
-    );
+    this.setState(prevState => {
+      return {
+        movies: page === 1 ? [] : prevState.movies,
+        isLoading: true
+      }      
+    }, () => {
+      fetch(url)
+      .then(res => res.json())
+      .then(
+        data => {
+          this.setState(prevState => ({
+            movies: (page === 1 ? [] : prevState.movies).concat(data.results),
+            searchKeywords: searchKeywords,
+            isLoading: false,
+            totalPages: data.total_pages,
+            lastPageLoaded: page,
+          }))
+        }
+        // ,
+        // TODO: Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        // (error) => {
+        //   this.setState({
+        //     isLoading: false,
+        //     error
+        //   });
+        // }
+        )
+    });
   }
 
   loadMore = () => {
@@ -73,8 +70,8 @@ export default class App extends React.Component {
   }
 
   handleSearch = (searchKeywords) => {
-    this.retrieveData(searchKeywords);
     this.scrollToTop();
+    this.retrieveData(searchKeywords);
   }
 
   scrollToTop = () => {
