@@ -63,7 +63,11 @@ export default function MovieModal(props) {
             </Row>
             <Row className="show-grid">
               <Col className="d-flex justify-content-center">
-                <iframe title="trailerFrame" width="560" height="340" src={MovieApi.TRAILER_BASE_URL + props.movieTrailer.key} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                {props.movieTrailer ?
+                  <iframe title="trailerFrame" width="560" height="340" src={MovieApi.TRAILER_BASE_URL + props.movieTrailer.key} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> :
+                  <p>No trailer available :(</p>
+                }
+                
               </Col>
             </Row>
           </Container>
