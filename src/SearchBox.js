@@ -20,12 +20,12 @@ export default function SearchBox(props) {
   }
 
   return (
-    <div className="bg-light rounded rounded-pill shadow-sm m-5 p-2 w-75">
+    <div className="bg-dark border border-white rounded rounded-pill shadow-sm m-5 p-2 w-75">
       <div className="input-group">
         <div className="input-group-prepend">
-          <button onClick={handleSearch} id="button-addon2" type="submit" className="btn btn-link text-dark"><i className="fa fa-search"></i></button>
+        <button onClick={handleSearch} id="button-addon2" type="submit" className="btn btn-link text-light"><i className="fa fa-search"></i></button>
         </div>
-        <input id="search-box" type="search" placeholder="What're you searching for?" aria-describedby="button-addon2" className="form-control border-0 bg-light" onKeyUp={handleEnter} onFocus={handleSearchFocus} />
+        <input id="search-box" type="search" placeholder="What are you searching for?" aria-describedby="button-addon2" className="form-control border-0 bg-secondary text-warning mr-2" onKeyUp={handleEnter} onFocus={handleSearchFocus} />
       </div>
     </div>
   );

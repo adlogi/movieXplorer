@@ -28,6 +28,22 @@
   color: #61dafb;
 }
 
+input::-webkit-input-placeholder {
+  color: #f8f9fa !important;
+  }
+   /*#A9BB25 FFC106 */
+  input:-moz-placeholder { /* Firefox 18- */
+  color: #f8f9fa !important;  
+  }
+   
+  input::-moz-placeholder {  /* Firefox 19+ */
+  color: #f8f9fa !important;  
+  }
+   
+  input:-ms-input-placeholder {  
+  color: #f8f9fa !important;  
+  }
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
