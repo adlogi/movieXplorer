@@ -39,15 +39,15 @@ export default function MovieModal(props) {
                 <p>{props.movieDetails.overview}</p>
               </Col>
             </Row>
-            
-            {props.movieCast.length === 0 ? '': <>
-              <Row className="show-grid">
-                <Col>
-                  <h4>Cast</h4>
-                </Col>
-              </Row>
-              <Row className="show-grid">
-                {props.movieCast.map((actor, index) => (
+
+            <Row className="show-grid">
+              <Col>
+                <h4>Cast</h4>
+              </Col>
+            </Row>
+            <Row className="show-grid">
+              {props.movieCast.length > 0 ?
+                props.movieCast.map((actor, index) => (
                   <Col md={6} lg={3} key={'actor-' + index}>
                   <Container>
                     <Row className="show-grid">
@@ -62,9 +62,10 @@ export default function MovieModal(props) {
                     </Row>
                   </Container>
                   </Col>
-                ))}
-              </Row></>
-            }
+                )) :
+                <Col className="d-flex justify-content-center"><p>No cast list available :( <i className="fas fa-heart-broken"></i></p></Col>
+              }
+            </Row>
             
             <Row className="show-grid">
               <Col className="d-flex justify-content-center">
@@ -72,7 +73,6 @@ export default function MovieModal(props) {
                   <iframe title="trailerFrame" width="560" height="340" src={MovieApi.TRAILER_BASE_URL + props.movieTrailer.key} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe> :
                   <p>No trailer available :( <i className="fas fa-heart-broken"></i></p>
                 }
-                
               </Col>
             </Row>
           </Container>
