@@ -9,8 +9,11 @@
     "bootstrap": "^4.4.1",
     "font-awesome": "^4.7.0",
     "react": "^16.13.0",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-bootstrap": "^1.0.0-beta.17",
+    "react-content-loader": "^5.0.2",
     "react-dom": "^16.13.0",
+    "react-image-appear": "^1.2.22",
     "react-scripts": "3.4.0"
   },
   "scripts": {
