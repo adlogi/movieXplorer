@@ -28,7 +28,7 @@ export default class MoviePoster extends React.Component {
         </>
       );
     } else {
-      return <img class="card-img-top" alt="" src={posterSrc} id={this.props.movie.id} onClick={this.props.detailsHandler} />;
+      return <img className="card-img-top" alt="" src={posterSrc} id={this.props.movie.id} onClick={this.props.detailsHandler} />;
     }
   }
 }
