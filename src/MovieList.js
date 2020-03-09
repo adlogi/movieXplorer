@@ -5,9 +5,8 @@ import Placeholder from './Placeholder'
 
 export default function MovieList(props) {
   const movieCards = [];
-  let i = 0;
-
-  function insertRowBreak(index) {
+  
+  const insertRowBreak = index => {
     // Controling the number of cards per row (responsive)
     // Credit: https://www.codeply.com/go/nIB6oSbv6q
     // wrap every 2 on sm
@@ -20,6 +19,7 @@ export default function MovieList(props) {
     if ((index + 1) % 5 === 0) movieCards.push(<div key={`${index}.5`} className="w-100 d-none d-xl-block"></div>);
   }
 
+  let i = 0;
   for (; i < props.movies.length; i++) {
     movieCards.push(<MovieCard key={i} movie={props.movies[i]} detailsHandler={props.detailsHandler} />);
     insertRowBreak(i);
