@@ -30,7 +30,16 @@ export default class App extends React.Component {
     } else {
       url = MovieApi.getSearchMoviesUrl(searchKeywords, page);
     }
-    this.setState({ isLoading: true });
+    if (page === 1) {
+      this.setState({ 
+        movies: [],
+        isLoading: true
+      });
+    } else {
+      this.setState({
+        isLoading: true
+      });
+    }
     
     fetch(url)
     .then(res => res.json())
@@ -83,7 +92,7 @@ export default class App extends React.Component {
     // OR, instead of seeking the last card, just seek the footer:
     let footerOffset = this.footer.offsetTop + this.footer.clientHeight;
     let pageOffset = window.pageYOffset + window.innerHeight;
-    if (pageOffset >= footerOffset) {
+    if (pageOffset >= footerOffset && !this.state.isLoading) {
       this.loadMore();
     }
   };
