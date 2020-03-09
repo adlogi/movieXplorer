@@ -1,11 +1,11 @@
 import React from 'react';
 import MovieApi from './MovieApi';
-import SearchBox from './SearchBox';
-import MovieList from './MovieList';
-import MovieModal from './MovieModal';
+import SearchBox from './components/SearchBox';
+import MovieList from './components/MovieList';
+import MovieModal from './components/MovieModal';
 import Navbar from 'react-bootstrap/Navbar';
-import './App.css';
-import logo from './logo.png';
+import './style/App.css';
+import logo from './media/logo.png';
 
 export default class App extends React.Component {
   constructor(props) {

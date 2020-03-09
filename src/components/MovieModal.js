@@ -1,11 +1,11 @@
 import React from 'react';
-import MovieApi from './MovieApi';
+import MovieApi from '../MovieApi';
 import Modal from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import genericPoster from './film-poster-placeholder.png';
+import genericPoster from '../media/film-poster-placeholder.png';
 import 'font-awesome/css/font-awesome.min.css';
 
 export default function MovieModal(props) {

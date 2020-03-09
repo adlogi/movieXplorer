@@ -1,6 +1,6 @@
 import React from 'react';
-import MovieApi from './MovieApi';
-import genericPoster from './film-poster-placeholder.png';
+import MovieApi from '../MovieApi';
+import genericPoster from '../media/film-poster-placeholder.png';
 // import ReactImageAppear from 'react-image-appear';
 
 export default class MoviePoster extends React.Component {

@@ -1,7 +1,7 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
 import Card from 'react-bootstrap/Card';
-import genericPoster from './film-poster-placeholder.png';
+import genericPoster from '../media/film-poster-placeholder.png';
 
 export default function Placeholder() {
   return (
