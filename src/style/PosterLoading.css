@@ -1,7 +1,7 @@
 /*
-  Credit: https://codepen.io/mathdotrandom/pen/bvFqG
+  Credit: https://www.w3schools.com/howto/howto_css_loader.asp
   try also:
-  https://www.w3schools.com/howto/howto_css_loader.asp
+  https://codepen.io/mathdotrandom/pen/bvFqG
   https://codepen.io/kevinjannis/pen/KwJvpa
   https://loading.io/css/
 */
@@ -30,7 +30,47 @@
   z-index:4;
   content:' ';
 }
-  
+
+.lds-ripple {
+  display: inline-block;
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+}
+.lds-ripple div {
+  position: absolute;
+  border: 4px solid #fff;
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.lds-ripple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+@keyframes lds-ripple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
+  }
+}
+
+/*
+  Credit: https://codepen.io/mathdotrandom/pen/bvFqG
+*/
+/*
 @keyframes pulse{
 0%{
   height:0%;
@@ -42,8 +82,6 @@
   box-shadow:0 0 8px rgba(255,255,255,0.0);
 }
 50%{
-  /* background:rgba(17,217,255,1);
-  box-shadow:0 0 8px rgba(17,217,255,0.8); */
   background:rgba(255,255,255,1);
   box-shadow:0 0 8px rgba(255,255,255,0.8);
 }
@@ -108,7 +146,6 @@ ul>li:nth-of-type(2)>div{
   animation-delay:200ms;
 }
 
-
 ul>li:nth-of-type(3){
   transform:rotate(60deg);
 }
@@ -116,7 +153,6 @@ ul>li:nth-of-type(3){
 ul>li:nth-of-type(3)>div{
   animation-delay:300ms;
 }
-
 
 ul>li:nth-of-type(4){
   transform:rotate(90deg);
@@ -126,7 +162,6 @@ ul>li:nth-of-type(4)>div{
   animation-delay:400ms;
 }
 
-
 ul>li:nth-of-type(5){
   transform:rotate(120deg);
 }
@@ -134,7 +169,6 @@ ul>li:nth-of-type(5){
 ul>li:nth-of-type(5)>div{
   animation-delay:500ms;
 }
-
 
 ul>li:nth-of-type(6){
   transform:rotate(150deg);
@@ -144,7 +178,6 @@ ul>li:nth-of-type(6)>div{
   animation-delay:600ms;
 }
 
-
 ul>li:nth-of-type(7){
   transform:rotate(180deg);
   box-shadow:0 -1px 0 rgba(255,255,255,0.1);
@@ -153,7 +186,6 @@ ul>li:nth-of-type(7){
 ul>li:nth-of-type(7)>div{
   animation-delay:700ms;
 }
-
 
 ul>li:nth-of-type(8){
   transform:rotate(210deg);
@@ -168,6 +200,7 @@ ul>li:nth-of-type(9){
   transform:rotate(240deg);
   box-shadow:-1px 0 0 rgba(255,255,255,0.1);
 }
+
 ul>li:nth-of-type(9)>div{
   animation-delay:900ms;
 }
@@ -176,6 +209,7 @@ ul>li:nth-of-type(10){
   transform:rotate(270deg);
   box-shadow:-1px 0 0 rgba(255,255,255,0.1);
 }
+
 ul>li:nth-of-type(10)>div{
   animation-delay:1000ms;
 }
@@ -189,7 +223,6 @@ ul>li:nth-of-type(11)>div{
   animation-delay:1100ms;
 }
 
-
 ul>li:nth-of-type(12){
   transform:rotate(330deg);
   box-shadow:-1px 0 0 rgba(255,255,255,0.1);
@@ -197,4 +230,20 @@ ul>li:nth-of-type(12){
 
 ul>li:nth-of-type(12)>div{
   animation-delay:1200ms;
+} */
+
+/* 
+.loader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
 }
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+*/
