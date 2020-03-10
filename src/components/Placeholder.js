@@ -1,13 +1,14 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
-import Card from 'react-bootstrap/Card';
-import genericPoster from '../media/film-poster-placeholder.png';
+import PosterLoading from './PosterLoading'
 
 export default function Placeholder() {
   return (
-    <Card className="my-3">
-      <img alt="loading" className="feed__loading-item" src={genericPoster} width="100%" />
-      <Card.Body>
+    <div className="card my-3">
+      <div className="card-header p-0">
+        <PosterLoading />
+      </div>
+      <div className="card-body">
         <ContentLoader
           width={100+'%'}
           height={60}
@@ -18,8 +19,8 @@ export default function Placeholder() {
         >
           <rect x="5%" y="10" rx="10" ry="10" width="90%" height="40" />
         </ContentLoader>
-      </Card.Body>
-      <Card.Footer>
+      </div>
+      <div className="card-footer">
         <ContentLoader
           width={100+'%'}
           height={20}
@@ -30,7 +31,7 @@ export default function Placeholder() {
         >
           <rect x="5%" y="5" rx="10" ry="10" width="90%" height="10" />
         </ContentLoader>
-      </Card.Footer>
-    </Card>    
+      </div>
+    </div>    
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import MovieApi from '../MovieApi';
 import genericPoster from '../media/film-poster-placeholder.png';
+import PosterLoading from './PosterLoading';
 // import ReactImageAppear from 'react-image-appear';
 
 export default class MoviePoster extends React.Component {
@@ -23,12 +24,13 @@ export default class MoviePoster extends React.Component {
     if (this.state.loading) {
       return (
         <>
-          <img className="card-img-top" alt="" src={genericPoster} id={this.props.movie.id} onClick={this.props.detailsHandler} />
+          <PosterLoading movieId={this.props.movie.id} detailsHandler={this.props.detailsHandler}/>
+          {/* <img className="card-img-top" alt="" src={genericPoster} id={this.props.movie.id} onClick={this.props.detailsHandler} /> */}
           <img alt="" style={{display: 'none'}} src={posterSrc} id={this.props.movie.id} onLoad={this.onLoad} />
         </>
       );
     } else {
-      return <img className="card-img-top" alt="" src={posterSrc} id={this.props.movie.id} onClick={this.props.detailsHandler} />;
+      return <img className="card-img-top" alt="" src={posterSrc} id={this.props.movie.id} onClick={() => this.props.detailsHandler(this.props.movie.id)} />;
     }
   }
 }
