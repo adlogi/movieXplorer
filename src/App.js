@@ -75,11 +75,12 @@ export default class App extends React.Component {
   }
 
   scrollToTop = () => {
-    const c = document.documentElement.scrollTop || document.body.scrollTop;
-    if (c > 0) {
-      window.requestAnimationFrame(this.scrollToTop);
-      window.scrollTo(0, c - c / 10);
-    }
+    console.log('Scrolling to top')
+    window.scroll({
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth'
+    });
   };
 
   handleScroll = () => { 
@@ -162,8 +163,8 @@ export default class App extends React.Component {
 
         <MovieModal movieDetails={this.state.movieDetails} movieCast={this.state.movieCast} movieTrailer={this.state.movieTrailer} show={ this.state.detailsShown } onHide={ () => this.setDetailsShow(false) } />
 
-        {(this.state.lastPageLoaded < this.state.totalPages)?
-        (<button type="button" className="btn btn-dark border border-white" onClick={this.loadMore} >Load more...</button>):''}
+        {(this.state.lastPageLoaded < this.state.totalPages) ?
+        (<button type="button" className="btn btn-dark border border-white" onClick={this.loadMore} >Load more...</button>) : ''}
         <footer id="footer" className="p-4"></footer>
       </div>
     );
