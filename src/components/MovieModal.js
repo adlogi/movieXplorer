@@ -7,6 +7,8 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import genericPoster from '../media/film-poster-placeholder.png';
 import 'font-awesome/css/font-awesome.min.css';
+import PosterLoading from './PosterLoading';
+import ContentLoader from "react-content-loader";
 
 export default function MovieModal(props) {
   if (props.movieDetails) {
@@ -93,13 +95,30 @@ export default function MovieModal(props) {
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">Error</Modal.Title>
+          <Modal.Title id="contained-modal-title-vcenter">Loading Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Centered Modal</h4>
-          <p>
-            Cannot fetch movie details.
-          </p>
+        <Container>
+            <Row className="show-grid">
+              <Col xs={12} md={4}>
+                <div className="mb-4 w-100">
+                  <PosterLoading />
+                </div>
+              </Col>
+              <Col xs={12} md={8}>
+                <ContentLoader
+                  width={100+'%'}
+                  height={60}
+                  speed={2}
+                  primary-color="#f3f3f3"
+                  secondary-color="#7c7c7c"
+                  style={{ marginBottom: "4px" }}
+                >
+                  <rect x="5%" y="10" rx="10" ry="10" width="90%" height="40" />
+                </ContentLoader>
+              </Col>
+            </Row>
+          </Container>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide} variant="dark">Close</Button>

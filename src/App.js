@@ -125,9 +125,15 @@ export default class App extends React.Component {
   }
 
   retrieveDetails = async (movieId) => {
-    let [details, credits, videos] = await this.fetchDetails(movieId);
     this.setState({
       detailsShown: true,
+      movieDetails: null,
+      movieCast: [],
+      movieTrailer: null,
+    });
+    let [details, credits, videos] = await this.fetchDetails(movieId);
+    this.setState({
+      // detailsShown: true,
       movieDetails: details,
       movieCast: credits.cast.slice(0, 4),
       movieTrailer: videos.results[0],
