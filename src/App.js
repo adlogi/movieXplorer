@@ -95,8 +95,8 @@ export default class App extends React.Component {
     }
   };
 
-  handleDetailsClick = (event) => {
-    let movieId = event.target.id;
+  handleDetailsClick = (movieId) => {
+    // let movieId = event.target.id;
     this.retrieveDetails(movieId);
   }
 
