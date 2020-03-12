@@ -1,4 +1,10 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
 import MovieApi from './MovieApi';
 import SearchBox from './components/SearchBox';
 import MovieList from './components/MovieList';
@@ -22,8 +28,10 @@ export default class App extends React.Component {
     }
   }
 
-  retrieveData = (searchKeywords, page = 1) => {
+  retrieveData = (searchKeywords = '', page = 1) => {
     let url;
+    // replace [duplicate] whitespaces with a '+'
+    searchKeywords = searchKeywords.replace(/\s+/g,'+');
     if (searchKeywords === '') {
       url = MovieApi.getMoviesListUrl(`popular`, page);
     } else {
@@ -33,6 +41,7 @@ export default class App extends React.Component {
     this.setState(prevState => {
       return {
         movies: page === 1 ? [] : prevState.movies,
+        searchKeywords: searchKeywords,
         isLoading: true
       }      
     }, () => {
@@ -42,7 +51,6 @@ export default class App extends React.Component {
         data => {
           this.setState(prevState => ({
             movies: (page === 1 ? [] : prevState.movies).concat(data.results),
-            searchKeywords: searchKeywords,
             isLoading: false,
             totalPages: data.total_pages,
             lastPageLoaded: page,
@@ -74,7 +82,6 @@ export default class App extends React.Component {
   }
 
   scrollToTop = () => {
-    console.log('Scrolling to top')
     window.scroll({
       top: 0, 
       left: 0, 
@@ -141,33 +148,44 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.footer = document.querySelector('#footer');
-    this.retrieveData('');
+    // this.retrieveData('');
     window.addEventListener('scroll', this.handleScroll);
   }
   
   render() {
     return (
-      <div className="App container-fluid bg-dark h-100 mh-100">
-        <div className="row d-flex justify-content-center">
-          <Header />
+      <Router>
+        <div className="App container-fluid bg-dark h-100 mh-100">
+          <div className="row d-flex justify-content-center">
+            <Header />
+          </div>
+
+          <div className="row d-flex justify-content-center sticky-top" >
+            <SearchBox handleSearch={this.handleSearch} />
+          </div>
+
+          <Switch>
+            <Route exact path='/'>
+              <h2 className="display-4 text-light">
+                The <span className="font-weight-bold font-italic text-warning">Most Popular</span> Today!
+              </h2>
+
+              <MovieList movies={this.state.movies} searchKeywords={this.state.searchKeywords} detailsHandler={this.handleDetailsClick} fetchHandler={this.retrieveData} isLoading={this.state.isLoading} />
+            </Route>
+            <Route exact path='/search'>
+              <h2 className="display-4 text-light">
+                {this.state.searchKeywords === '' ? <>The <span className="font-weight-bold font-italic text-warning">Most Popular</span> Today!</> : <>Results for <span className="font-weight-bold font-italic text-warning">{this.state.searchKeywords}</span></>}
+              </h2>
+            </Route>
+          </Switch>
+
+          <MovieModal movieDetails={this.state.movieDetails} movieCast={this.state.movieCast} movieTrailer={this.state.movieTrailer} show={ this.state.detailsShown } onHide={ () => this.setDetailsShow(false) } />
+
+          {(this.state.lastPageLoaded < this.state.totalPages) ?
+          (<button type="button" className="btn btn-dark border border-white" onClick={this.loadMore} >Load more...</button>) : ''}
+          <footer id="footer" className="p-4"></footer>
         </div>
-
-        <div className="row d-flex justify-content-center sticky-top" >
-          <SearchBox handleSearch={this.handleSearch} />
-        </div>
-
-        <h2 className="display-4 text-light">
-          {this.state.searchKeywords === '' ? <>The <span className="font-weight-bold font-italic text-warning">Most Popular</span> Today!</> : <>Results for <span className="font-weight-bold font-italic text-warning">{this.state.searchKeywords}</span></>}
-        </h2>
-
-        <MovieList movies={this.state.movies} detailsHandler={this.handleDetailsClick} isLoading={this.state.isLoading} />
-
-        <MovieModal movieDetails={this.state.movieDetails} movieCast={this.state.movieCast} movieTrailer={this.state.movieTrailer} show={ this.state.detailsShown } onHide={ () => this.setDetailsShow(false) } />
-
-        {(this.state.lastPageLoaded < this.state.totalPages) ?
-        (<button type="button" className="btn btn-dark border border-white" onClick={this.loadMore} >Load more...</button>) : ''}
-        <footer id="footer" className="p-4"></footer>
-      </div>
+      </Router>
     );
   }
   
