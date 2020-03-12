@@ -3,9 +3,8 @@ import MovieApi from './MovieApi';
 import SearchBox from './components/SearchBox';
 import MovieList from './components/MovieList';
 import MovieModal from './components/MovieModal';
-import Navbar from 'react-bootstrap/Navbar';
+import Header from './components/Header';
 import './style/App.css';
-import logo from './media/logo.png';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -150,11 +149,7 @@ export default class App extends React.Component {
     return (
       <div className="App container-fluid bg-dark h-100 mh-100">
         <div className="row d-flex justify-content-center">
-          <Navbar bg="dark" variant="light">
-            <Navbar.Brand href="#home">
-              <img alt="" src={logo} width="200" className="d-inline-block align-top ml-4" style={{ "filter":"invert(100%)" }} />{' '}
-            </Navbar.Brand>
-          </Navbar>
+          <Header />
         </div>
 
         <div className="row d-flex justify-content-center sticky-top" >
