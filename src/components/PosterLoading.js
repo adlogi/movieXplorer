@@ -7,21 +7,7 @@ export default function PosterLoading(props) {
     <div className="loader-container">
       <img alt="loading" className="feed__loading-item" src={genericPoster} width="100%" />
       <div className="loader" onClick={() => props.detailsHandler(props.movieId)}>
-      <div class="lds-ripple"><div></div><div></div></div>
-        {/* <ul>
-          <li><div></div></li>
-          <li><div></div></li>
-          <li><div></div></li>
-          <li><div></div></li>
-          <li><div></div></li>
-          <li><div></div></li>
-          <li><div></div></li>
-          <li><div></div></li>
-          <li><div></div></li>
-          <li><div></div></li>
-          <li><div></div></li>
-          <li><div></div></li>
-        </ul> */}
+      <div className="lds-ripple"><div></div><div></div></div>
       </div>
     </div>  
   );
