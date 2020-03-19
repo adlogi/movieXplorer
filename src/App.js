@@ -1,4 +1,6 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom'
+import { Route, Switch, NavLink, Link, Redirect } from 'react-router-dom'
 import MovieApi from './MovieApi';
 import SearchBox from './components/SearchBox';
 import MovieList from './components/MovieList';
@@ -11,7 +13,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       movies: [],
-      searchKeywords: '',
+      query: '',
       isLoading: true,
       lastPageLoaded: 0,
       totalPages: 0,
@@ -22,18 +24,24 @@ export default class App extends React.Component {
     }
   }
 
-  retrieveData = (searchKeywords, page = 1) => {
+  handleSearch = (searchKeywords) => {
+    // replace [duplicate] whitespaces with a '+'
+    searchKeywords = searchKeywords.replace(/\s+/g,'+');
+    this.retrieveData(searchKeywords);
+  }
+
+  retrieveData = (query, page = 1) => {
     let url;
-    if (searchKeywords === '') {
+    if (query === '') {
       url = MovieApi.getMoviesListUrl(`popular`, page);
     } else {
-      url = MovieApi.getSearchMoviesUrl(searchKeywords, page);
+      url = MovieApi.getSearchMoviesUrl(query, page);
     }
     
     this.setState(prevState => {
       return {
         movies: page === 1 ? [] : prevState.movies,
-        isLoading: true
+        isLoading: true,
       }      
     }, () => {
       fetch(url)
@@ -42,7 +50,6 @@ export default class App extends React.Component {
         data => {
           this.setState(prevState => ({
             movies: (page === 1 ? [] : prevState.movies).concat(data.results),
-            searchKeywords: searchKeywords,
             isLoading: false,
             totalPages: data.total_pages,
             lastPageLoaded: page,
@@ -64,13 +71,8 @@ export default class App extends React.Component {
 
   loadMore = () => {
     if (this.state.lastPageLoaded < this.state.totalPages) {
-      this.retrieveData(this.state.searchKeywords, this.state.lastPageLoaded + 1);
+      this.retrieveData(this.state.query, this.state.lastPageLoaded + 1);
     }
-  }
-
-  handleSearch = (searchKeywords) => {
-    this.scrollToTop();
-    this.retrieveData(searchKeywords);
   }
 
   scrollToTop = () => {
@@ -141,11 +143,12 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.footer = document.querySelector('#footer');
-    this.retrieveData('');
+    // this.retrieveData('');
     window.addEventListener('scroll', this.handleScroll);
   }
   
   render() {
+    console.log(this.state)
     return (
       <div className="App container-fluid bg-dark h-100 mh-100">
         <div className="row d-flex justify-content-center">
@@ -157,10 +160,17 @@ export default class App extends React.Component {
         </div>
 
         <h2 className="display-4 text-light">
-          {this.state.searchKeywords === '' ? <>The <span className="font-weight-bold font-italic text-warning">Most Popular</span> Today!</> : <>Results for <span className="font-weight-bold font-italic text-warning">{this.state.searchKeywords}</span></>}
+          {this.state.query === '' ? <>The <span className="font-weight-bold font-italic text-warning">Most Popular</span> Today!</> : <>Results for <span className="font-weight-bold font-italic text-warning">{this.state.query}</span></>}
         </h2>
-
-        <MovieList movies={this.state.movies} detailsHandler={this.handleDetailsClick} isLoading={this.state.isLoading} />
+        <Router>
+          <Route exact path='/' render={ ()=>
+            this.state.query === '' ? <MovieList movies={this.state.movies} query={this.state.query} detailsHandler={this.handleDetailsClick} isLoading={this.state.isLoading} handleRetrieve={this.retrieveData} /> : <Redirect to={`/search/${this.state.query}`} />
+          } />
+          <Route path='/search/:query' render={(routerProps) =>
+              <MovieList {...routerProps} movies={this.state.movies} query={this.state.query} detailsHandler={this.handleDetailsClick} isLoading={this.state.isLoading} handleRetrieve={this.retrieveData} />
+            }
+            />
+        </Router>
 
         <MovieModal movieDetails={this.state.movieDetails} movieCast={this.state.movieCast} movieTrailer={this.state.movieTrailer} show={ this.state.detailsShown } onHide={ () => this.setDetailsShow(false) } />
 
