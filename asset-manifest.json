@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/moviexplorer/static/css/main.6d1eb5ec.chunk.css",
+    "main.js": "/moviexplorer/static/js/main.34e5c8d8.chunk.js",
+    "main.js.map": "/moviexplorer/static/js/main.34e5c8d8.chunk.js.map",
+    "runtime-main.js": "/moviexplorer/static/js/runtime-main.a46c3810.js",
+    "runtime-main.js.map": "/moviexplorer/static/js/runtime-main.a46c3810.js.map",
+    "static/css/2.f61e5bef.chunk.css": "/moviexplorer/static/css/2.f61e5bef.chunk.css",
+    "static/js/2.fc52b772.chunk.js": "/moviexplorer/static/js/2.fc52b772.chunk.js",
+    "static/js/2.fc52b772.chunk.js.map": "/moviexplorer/static/js/2.fc52b772.chunk.js.map",
+    "index.html": "/moviexplorer/index.html",
+    "precache-manifest.8811f1fbec347042ebd9d51a78e2bd65.js": "/moviexplorer/precache-manifest.8811f1fbec347042ebd9d51a78e2bd65.js",
+    "service-worker.js": "/moviexplorer/service-worker.js",
+    "static/css/2.f61e5bef.chunk.css.map": "/moviexplorer/static/css/2.f61e5bef.chunk.css.map",
+    "static/css/main.6d1eb5ec.chunk.css.map": "/moviexplorer/static/css/main.6d1eb5ec.chunk.css.map",
+    "static/js/2.fc52b772.chunk.js.LICENSE.txt": "/moviexplorer/static/js/2.fc52b772.chunk.js.LICENSE.txt",
+    "static/media/film-poster-placeholder.png": "/moviexplorer/static/media/film-poster-placeholder.e611409a.png",
+    "static/media/font-awesome.min.css": "/moviexplorer/static/media/fontawesome-webfont.fee66e71.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a46c3810.js",
+    "static/css/2.f61e5bef.chunk.css",
+    "static/js/2.fc52b772.chunk.js",
+    "static/css/main.6d1eb5ec.chunk.css",
+    "static/js/main.34e5c8d8.chunk.js"
+  ]
+}
